@@ -5,126 +5,386 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cahier d'Automatismes - BCPST2</title>
     <style>
+        :root {
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-light: #64748b;
+            --primary: #002f6c;
+            --primary-light: #004094;
+            --accent: #38bdf8;
+        }
+
+        /* Mode Sombre Automatique */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0f172a;
+                --surface: #1e293b;
+                --border: #334155;
+                --text: #f8fafc;
+                --text-light: #94a3b8;
+                --primary: #38bdf8;
+                --primary-light: #7dd3fc;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            max-width: 600px; 
+            max-width: 550px; 
             margin: auto; 
-            padding: 20px; 
-            background-color: #f4f6f9;
-            color: #333;
+            padding: 0 15px 40px 15px; 
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
         }
-        h1 { color: #002f6c; text-align: center; font-size: 1.6rem; margin-bottom: 5px; }
-        p { text-align: center; color: #555; margin-bottom: 25px; }
+
+        /* En-tête Fixe avec Recherche */
+        sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: block;
+            background-color: var(--bg);
+            padding: 20px 0 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #001f4d 0%, #002f6c 100%);
+            color: white;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 47, 108, 0.15);
+            margin-bottom: 15px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            header {
+                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                border: 1px solid var(--border);
+            }
+        }
+
+        h1 { 
+            margin: 0;
+            font-size: 1.4rem; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle { 
+            margin-top: 4px;
+            margin-bottom: 0;
+            color: var(--accent); 
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Barre de recherche */
+        .search-container {
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background-color: var(--surface);
+            color: var(--text);
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Séparateurs de chapitres */
+        .period-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-light);
+            margin: 25px 0 12px 5px;
+            font-weight: 800;
+        }
+
+        /* Cartes des semaines */
         .week-card { 
-            background: white; 
-            padding: 15px 20px; 
-            border-radius: 10px; 
-            margin-bottom: 15px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-            scroll-margin-top: 20px; 
+            background: var(--surface); 
+            padding: 16px 18px; 
+            border-radius: 14px; 
+            margin-bottom: 12px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); 
+            scroll-margin-top: 130px; 
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+
+        .week-card:hover, .week-card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        }
+
+        .week-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .week-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .week-name {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        /* Bouton */
         .btn { 
-            display: block; 
-            background: #002f6c; 
-            color: white; 
-            padding: 12px; 
-            margin-top: 10px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary); 
+            color: white !important; 
+            padding: 11px; 
             text-align: center; 
             text-decoration: none; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            font-size: 0.95rem;
-            transition: background 0.2s;
+            border-radius: 10px; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+            transition: background 0.15s;
         }
-        .btn:hover { background: #001f4d; }
+
+        @media (prefers-color-scheme: dark) {
+            .btn { color: #0f172a !important; }
+        }
+
+        .btn:hover { 
+            background: var(--primary-light); 
+        }
+
+        .btn::before {
+            content: "📄";
+            margin-right: 8px;
+        }
+
+        /* Message si aucun résultat */
+        #no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
-    <h1>Corrigés des Automatismes</h1>
-    <p>Sélectionnez la semaine en cours pour afficher les solutions :</p>
-    
-    <div class="week-card" id="w01">
-        <a class="btn" href="solutions/corrige_w01.pdf">Semaine 01 : Algèbre linéaire & Révisions</a>
-    </div>
-    <div class="week-card" id="w02">
-        <a class="btn" href="solutions/corrige_w02.pdf">Semaine 02 : Séries réelles (Convergences)</a>
-    </div>
-    <div class="week-card" id="w03">
-        <a class="btn" href="solutions/corrige_w03.pdf">Semaine 03 : Séries réelles (Calculs de sommes)</a>
-    </div>
-    <div class="week-card" id="w04">
-        <a class="btn" href="solutions/corrige_w04.pdf">Semaine 04 : Séries réelles (Compléments)</a>
-    </div>
-    <div class="week-card" id="w05">
-        <a class="btn" href="solutions/corrige_w05.pdf">Semaine 05 : Espaces vectoriels</a>
-    </div>
-    <div class="week-card" id="w06">
-        <a class="btn" href="solutions/corrige_w06.pdf">Semaine 06 : Applications linéaires</a>
-    </div>
-    <div class="week-card" id="w07">
-        <a class="btn" href="solutions/corrige_w07.pdf">Semaine 07 : Dimension finie</a>
+    <sticky-header>
+        <header>
+            <h1>Mathématiques BCPST2</h1>
+            <div class="subtitle">Cahier d'Automatismes — Solutions</div>
+        </header>
+        <div class="search-container">
+            <input type="text" id="search" class="search-bar" placeholder="🔍 Rechercher une semaine ou un thème...">
+        </div>
+    </sticky-header>
+
+    <div id="no-results">Aucun automatisme ne correspond à votre recherche.</div>
+
+    <div class="list-container">
+        <div class="period-title">Premier Trimestre</div>
+
+        <div class="week-card" id="w01">
+            <div class="week-meta"><span class="week-number">SEMAINE 01</span></div>
+            <div class="week-name">Algèbre linéaire & Révisions</div>
+            <a class="btn" href="solutions/corrige_w01.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w02">
+            <div class="week-meta"><span class="week-number">SEMAINE 02</span></div>
+            <div class="week-name">Séries réelles (Convergences)</div>
+            <a class="btn" href="solutions/corrige_w02.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w03">
+            <div class="week-meta"><span class="week-number">SEMAINE 03</span></div>
+            <div class="week-name">Séries réelles (Calculs de sommes)</div>
+            <a class="btn" href="solutions/corrige_w03.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w04">
+            <div class="week-meta"><span class="week-number">SEMAINE 04</span></div>
+            <div class="week-name">Séries réelles (Compléments)</div>
+            <a class="btn" href="solutions/corrige_w04.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w05">
+            <div class="week-meta"><span class="week-number">SEMAINE 05</span></div>
+            <div class="week-name">Espaces vectoriels</div>
+            <a class="btn" href="solutions/corrige_w05.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w06">
+            <div class="week-meta"><span class="week-number">SEMAINE 06</span></div>
+            <div class="week-name">Applications linéaires</div>
+            <a class="btn" href="solutions/corrige_w06.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w07">
+            <div class="week-meta"><span class="week-number">SEMAINE 07</span></div>
+            <div class="week-name">Dimension finie</div>
+            <a class="btn" href="solutions/corrige_w07.pdf">Ouvrir le corrigé</a>
+        </div>
+
+        <div class="period-title">Deuxième Trimestre</div>
+
+        <div class="week-card" id="w08">
+            <div class="week-meta"><span class="week-number">SEMAINE 08</span></div>
+            <div class="week-name">Variables aléatoires discrètes</div>
+            <a class="btn" href="solutions/corrige_w08.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w09">
+            <div class="week-meta"><span class="week-number">SEMAINE 09</span></div>
+            <div class="week-name">Lois discrètes usuelles</div>
+            <a class="btn" href="solutions/corrige_w09.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w10">
+            <div class="week-meta"><span class="week-number">SEMAINE 10</span></div>
+            <div class="week-name">Intégrales sur un intervalle quelconque</div>
+            <a class="btn" href="solutions/corrige_w10.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w11">
+            <div class="week-meta"><span class="week-number">SEMAINE 11</span></div>
+            <div class="week-name">Intégrales généralisées (Calculs)</div>
+            <a class="btn" href="solutions/corrige_w11.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w12">
+            <div class="week-meta"><span class="week-number">SEMAINE 12</span></div>
+            <div class="week-name">Calcul matriciel et Inversibilité</div>
+            <a class="btn" href="solutions/corrige_w12.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w13">
+            <div class="week-meta"><span class="week-number">SEMAINE 13</span></div>
+            <div class="week-name">Changements de base et Déterminants</div>
+            <a class="btn" href="solutions/corrige_w13.pdf">Ouvrir le corrigé</a>
+        </div>
+
+        <div class="period-title">Troisième Trimestre</div>
+
+        <div class="week-card" id="w14">
+            <div class="week-meta"><span class="week-number">SEMAINE 14</span></div>
+            <div class="week-name">Réduction — Éléments propres</div>
+            <a class="btn" href="solutions/corrige_w14.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w15">
+            <div class="week-meta"><span class="week-number">SEMAINE 15</span></div>
+            <div class="week-name">Réduction — Diagonalisation</div>
+            <a class="btn" href="solutions/corrige_w15.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w16">
+            <div class="week-meta"><span class="week-number">SEMAINE 16</span></div>
+            <div class="week-name">Espaces euclidiens</div>
+            <a class="btn" href="solutions/corrige_w16.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w17">
+            <div class="week-meta"><span class="week-number">SEMAINE 17</span></div>
+            <div class="week-name">Endomorphismes symétriques</div>
+            <a class="btn" href="solutions/corrige_w17.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w18">
+            <div class="week-meta"><span class="week-number">SEMAINE 18</span></div>
+            <div class="week-name">Variables aléatoires à densité</div>
+            <a class="btn" href="solutions/corrige_w18.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w19">
+            <div class="week-meta"><span class="week-number">SEMAINE 19</span></div>
+            <div class="week-name">Lois à densité usuelles</div>
+            <a class="btn" href="solutions/corrige_w19.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w20">
+            <div class="week-meta"><span class="week-number">SEMAINE 20</span></div>
+            <div class="week-name">Fonctions de deux variables (Différentielles)</div>
+            <a class="btn" href="solutions/corrige_w20.pdf">Ouvrir le corrigé</a>
+        </div>
+
+        <div class="period-title">Dernière Ligne Droite</div>
+
+        <div class="week-card" id="w21">
+            <div class="week-meta"><span class="week-number">SEMAINE 21</span></div>
+            <div class="week-name">Couples (Lois conditionnelles)</div>
+            <a class="btn" href="solutions/corrige_w21.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w22">
+            <div class="week-meta"><span class="week-number">SEMAINE 22</span></div>
+            <div class="week-name">Couples (Indépendance)</div>
+            <a class="btn" href="solutions/corrige_w22.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w23">
+            <div class="week-meta"><span class="week-number">SEMAINE 23</span></div>
+            <div class="week-name">Théorèmes limites (Inégalités)</div>
+            <a class="btn" href="solutions/corrige_w23.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w24">
+            <div class="week-meta"><span class="week-number">SEMAINE 24</span></div>
+            <div class="week-name">Théorèmes limites (Loi des grands nobles)</div>
+            <a class="btn" href="solutions/corrige_w24.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w25">
+            <div class="week-meta"><span class="week-number">SEMAINE 25</span></div>
+            <div class="week-name">Théorèmes limites (TCL) & Révisions</div>
+            <a class="btn" href="solutions/corrige_w25.pdf">Ouvrir le corrigé</a>
+        </div>
+        <div class="week-card" id="w26">
+            <div class="week-meta"><span class="week-number">SEMAINE 26</span></div>
+            <div class="week-name">Révisions Générales (Algèbre & Analyse)</div>
+            <a class="btn" href="solutions/corrige_w26.pdf">Ouvrir le corrigé</a>
+        </div>
     </div>
 
-    <div class="week-card" id="w08">
-        <a class="btn" href="solutions/corrige_w08.pdf">Semaine 08 : Variables aléatoires discrètes</a>
-    </div>
-    <div class="week-card" id="w09">
-        <a class="btn" href="solutions/corrige_w09.pdf">Semaine 09 : Lois discrètes usuelles</a>
-    </div>
-    <div class="week-card" id="w10">
-        <a class="btn" href="solutions/corrige_w10.pdf">Semaine 10 : Intégrales sur un intervalle quelconque</a>
-    </div>
-    <div class="week-card" id="w11">
-        <a class="btn" href="solutions/corrige_w11.pdf">Semaine 11 : Intégrales généralisées (Calculs)</a>
-    </div>
-    <div class="week-card" id="w12">
-        <a class="btn" href="solutions/corrige_w12.pdf">Semaine 12 : Calcul matriciel et Inversibilité</a>
-    </div>
-    <div class="week-card" id="w13">
-        <a class="btn" href="solutions/corrige_w13.pdf">Semaine 13 : Changements de base et Déterminants</a>
-    </div>
+    <script>
+        document.getElementById('search').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const cards = document.querySelectorAll('.week-card');
+            const titles = document.querySelectorAll('.period-title');
+            let visibleCards = 0;
 
-    <div class="week-card" id="w14">
-        <a class="btn" href="solutions/corrige_w14.pdf">Semaine 14 : Réduction — Éléments propres</a>
-    </div>
-    <div class="week-card" id="w15">
-        <a class="btn" href="solutions/corrige_w15.pdf">Semaine 15 : Réduction — Diagonalisation</a>
-    </div>
-    <div class="week-card" id="w16">
-        <a class="btn" href="solutions/corrige_w16.pdf">Semaine 16 : Espaces euclidiens</a>
-    </div>
-    <div class="week-card" id="w17">
-        <a class="btn" href="solutions/corrige_w17.pdf">Semaine 17 : Endomorphismes symétriques</a>
-    </div>
-    <div class="week-card" id="w18">
-        <a class="btn" href="solutions/corrige_w18.pdf">Semaine 18 : Variables aléatoires à densité</a>
-    </div>
-    <div class="week-card" id="w19">
-        <a class="btn" href="solutions/corrige_w19.pdf">Semaine 19 : Lois à densité usuelles</a>
-    </div>
-    <div class="week-card" id="w20">
-        <a class="btn" href="solutions/corrige_w20.pdf">Semaine 20 : Fonctions de deux variables (Différentielles)</a>
-    </div>
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                    visibleCards++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
 
-    <div class="week-card" id="w21">
-        <a class="btn" href="solutions/corrige_w21.pdf">Semaine 21 : Couples (Lois conditionnelles)</a>
-    </div>
-    <div class="week-card" id="w22">
-        <a class="btn" href="solutions/corrige_w22.pdf">Semaine 22 : Couples (Indépendance)</a>
-    </div>
-    <div class="week-card" id="w23">
-        <a class="btn" href="solutions/corrige_w23.pdf">Semaine 23 : Théorèmes limites (Inégalités)</a>
-    </div>
-    <div class="week-card" id="w24">
-        <a class="btn" href="solutions/corrige_w24.pdf">Semaine 24 : Théorèmes limites (Loi des grands nombres)</a>
-    </div>
-    <div class="week-card" id="w25">
-        <a class="btn" href="solutions/corrige_w25.pdf">Semaine 25 : Théorèmes limites (TCL) & Révisions</a>
-    </div>
-    <div class="week-card" id="w26">
-        <a class="btn" href="solutions/corrige_w26.pdf">Semaine 26 : Révisions Générales (Algèbre & Analyse)</a>
-    </div>
+            // Gérer l'affichage des titres de période
+            titles.forEach(title => {
+                if (query.length > 0) {
+                    title.style.display = 'none'; // Masquer les titres de trimestres en recherche
+                } else {
+                    title.style.display = 'block';
+                }
+            });
 
+            // Afficher un message si rien n'est trouvé
+            document.getElementById('no-results').style.display = visibleCards === 0 ? 'block' : 'none';
+        });
+    </script>
 </body>
 </html>

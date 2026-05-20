@@ -3,37 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrigés d'Automatismes — BCPST2</title>
+    <title>Cahier d'Automatismes - BCPST2</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f6f9; color: #333; max-width: 500px; margin: 0 auto; padding: 20px; }
-        h1 { color: #002f6c; text-align: center; font-size: 1.5rem; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 30px; }
-        .week-card { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); scroll-margin-top: 20px; }
-        .week-title { font-weight: bold; font-size: 1.1rem; color: #002f6c; margin-bottom: 10px; border-bottom: 2px solid #eef2f7; padding-bottom: 5px; }
-        .btn { display: block; background: #002f6c; color: white; padding: 12px; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 0.95rem; transition: background 0.2s; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            max-width: 600px; 
+            margin: auto; 
+            padding: 20px; 
+            background-color: #f4f6f9;
+            color: #333;
+        }
+        h1 { color: #002f6c; text-align: center; font-size: 1.6rem; margin-bottom: 5px; }
+        p { text-align: center; color: #555; margin-bottom: 25px; }
+        .week-card { 
+            background: white; 
+            padding: 15px 20px; 
+            border-radius: 10px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            scroll-margin-top: 20px; 
+        }
+        .btn { 
+            display: block; 
+            background: #002f6c; 
+            color: white; 
+            padding: 12px; 
+            margin-top: 10px; 
+            text-align: center; 
+            text-decoration: none; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
         .btn:hover { background: #001f4d; }
-        .no-file { background: #f8d7da; color: #721c24; padding: 12px; text-align: center; border-radius: 8px; font-size: 0.9rem; font-style: italic; }
     </style>
 </head>
 <body>
 
-    <h1>Mathématiques BCPST2</h1>
-    <div class="subtitle">Cahier d'Automatismes — Solutions</div>
+    <h1>Corrigés des Automatismes</h1>
+    <p>Sélectionnez la semaine en cours pour afficher les solutions :</p>
+    
+    <div class="week-card" id="w01">
+        <a class="btn" href="solutions/corrige_w01.pdf">Semaine 01 : Algèbre linéaire & Révisions</a>
+    </div>
+    <div class="week-card" id="w02">
+        <a class="btn" href="solutions/corrige_w02.pdf">Semaine 02 : Séries réelles (Convergences)</a>
+    </div>
+    <div class="week-card" id="w03">
+        <a class="btn" href="solutions/corrige_w03.pdf">Semaine 03 : Séries réelles (Calculs de sommes)</a>
+    </div>
+    <div class="week-card" id="w04">
+        <a class="btn" href="solutions/corrige_w04.pdf">Semaine 04 : Séries réelles (Compléments)</a>
+    </div>
+    <div class="week-card" id="w05">
+        <a class="btn" href="solutions/corrige_w05.pdf">Semaine 05 : Espaces vectoriels</a>
+    </div>
+    <div class="week-card" id="w06">
+        <a class="btn" href="solutions/corrige_w06.pdf">Semaine 06 : Applications linéaires</a>
+    </div>
+    <div class="week-card" id="w07">
+        <a class="btn" href="solutions/corrige_w07.pdf">Semaine 07 : Dimension finie</a>
+    </div>
+
+    <div class="week-card" id="w08">
+        <a class="btn" href="solutions/corrige_w08.pdf">Semaine 08 : Variables aléatoires discrètes</a>
+    </div>
+    <div class="week-card" id="w09">
+        <a class="btn" href="solutions/corrige_w09.pdf">Semaine 09 : Lois discrètes usuelles</a>
+    </div>
+    <div class="week-card" id="w10">
+        <a class="btn" href="solutions/corrige_w10.pdf">Semaine 10 : Intégrales sur un intervalle quelconque</a>
+    </div>
+    <div class="week-card" id="w11">
+        <a class="btn" href="solutions/corrige_w11.pdf">Semaine 11 : Intégrales généralisées (Calculs)</a>
+    </div>
+    <div class="week-card" id="w12">
+        <a class="btn" href="solutions/corrige_w12.pdf">Semaine 12 : Calcul matriciel et Inversibilité</a>
+    </div>
+    <div class="week-card" id="w13">
+        <a class="btn" href="solutions/corrige_w13.pdf">Semaine 13 : Changements de base et Déterminants</a>
+    </div>
+
+    <div class="week-card" id="w14">
+        <a class="btn" href="solutions/corrige_w14.pdf">Semaine 14 : Réduction — Éléments propres</a>
+    </div>
+    <div class="week-card" id="w15">
+        <a class="btn" href="solutions/corrige_w15.pdf">Semaine 15 : Réduction — Diagonalisation</a>
+    </div>
+    <div class="week-card" id="w16">
+        <a class="btn" href="solutions/corrige_w16.pdf">Semaine 16 : Espaces euclidiens</a>
+    </div>
+    <div class="week-card" id="w17">
+        <a class="btn" href="solutions/corrige_w17.pdf">Semaine 17 : Endomorphismes symétriques</a>
+    </div>
+    <div class="week-card" id="w18">
+        <a class="btn" href="solutions/corrige_w18.pdf">Semaine 18 : Variables aléatoires à densité</a>
+    </div>
+    <div class="week-card" id="w19">
+        <a class="btn" href="solutions/corrige_w19.pdf">Semaine 19 : Lois à densité usuelles</a>
+    </div>
+    <div class="week-card" id="w20">
+        <a class="btn" href="solutions/corrige_w20.pdf">Semaine 20 : Fonctions de deux variables (Différentielles)</a>
+    </div>
 
     <div class="week-card" id="w21">
-        <div class="week-title">Semaine 21 : Couples (Lois conditionnelles)</div>
-        <a class="btn" href="solutions/corrige_w21.pdf">Ouvrir le corrigé PDF</a>
+        <a class="btn" href="solutions/corrige_w21.pdf">Semaine 21 : Couples (Lois conditionnelles)</a>
     </div>
-
     <div class="week-card" id="w22">
-        <div class="week-title">Semaine 22 : Couples (Indépendance)</div>
-        <a class="btn" href="solutions/corrige_w22.pdf">Ouvrir le corrigé PDF</a>
+        <a class="btn" href="solutions/corrige_w22.pdf">Semaine 22 : Couples (Indépendance)</a>
     </div>
-
     <div class="week-card" id="w23">
-        <div class="week-title">Semaine 23 : Variables à densité</div>
-        <a class="btn" href="solutions/corrige_w23.pdf">Ouvrir le corrigé PDF</a>
+        <a class="btn" href="solutions/corrige_w23.pdf">Semaine 23 : Théorèmes limites (Inégalités)</a>
+    </div>
+    <div class="week-card" id="w24">
+        <a class="btn" href="solutions/corrige_w24.pdf">Semaine 24 : Théorèmes limites (Loi des grands nombres)</a>
+    </div>
+    <div class="week-card" id="w25">
+        <a class="btn" href="solutions/corrige_w25.pdf">Semaine 25 : Théorèmes limites (TCL) & Révisions</a>
+    </div>
+    <div class="week-card" id="w26">
+        <a class="btn" href="solutions/corrige_w26.pdf">Semaine 26 : Révisions Générales (Algèbre & Analyse)</a>
     </div>
 
-    </body>
+</body>
 </html>

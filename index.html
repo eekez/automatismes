@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cahier d'Automatismes - BCPST2</title>
+    <title>Automatismes BCPST2 — Lycée Le Chesnoy</title>
     <style>
         :root {
-            --bg: #f8fafc;
-            --surface: #ffffff;
-            --border: #e2e8f0;
-            --text: #0f172a;
-            --text-light: #64748b;
-            --primary: #002f6c;
-            --primary-light: #004094;
-            --accent: #38bdf8;
+            /* Palette basée sur le logo Lycée Le Chesnoy */
+            --primary: #006e44; /* Vert Moyen/Foncé */
+            --primary-light: #008d5e; /* Vert Plus Clair */
+            --bg: #f2fcf8; /* Gris-Vert très clair pour fond */
+            --surface: #ffffff; /* Blanc pur pour cartes */
+            --border: #d2dfda; /* Vert-Gris moyen pour bordures */
+            --text: #00311c; /* Vert très foncé pour texte */
+            --text-light: #4e6f62; /* Vert-Gris pour texte secondaire */
+            --accent: #ffc107; /* Jaune Doré du logo */
+            --accent-light: #fff8e1; /* Jaune très clair pour états */
         }
 
-        /* Mode Sombre Automatique */
+        /* Mode Sombre Automatique (Green-Gold Theme) */
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg: #0f172a;
-                --surface: #1e293b;
-                --border: #334155;
-                --text: #f8fafc;
-                --text-light: #94a3b8;
-                --primary: #38bdf8;
-                --primary-light: #7dd3fc;
+                --bg: #0e1e19; /* Vert très sombre */
+                --surface: #1a2d26; /* Vert-Gris sombre */
+                --border: #3c524b; /* Vert-Gris moyen sombre */
+                --text: #e2fcf1; /* Vert très clair pour texte */
+                --text-light: #9bbdaf; /* Vert-Gris clair */
+                --primary: #ffc107; /* Jaune Doré (Boutons) */
+                --primary-light: #ffe082; /* Jaune clair (Hover) */
+                --accent: #ffeb3b; /* Jaune vif */
+                --accent-light: #1c1c1a; /* Fond de texte accentué */
             }
         }
 
@@ -34,59 +38,65 @@
         }
 
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
             max-width: 550px; 
             margin: auto; 
-            padding: 0 15px 40px 15px; 
+            padding: 0 15px 50px 15px; 
             background-color: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* En-tête Fixe avec Recherche */
+        /* En-tête Fixe (Sticky) revisité */
         sticky-header {
             position: sticky;
             top: 0;
             z-index: 100;
             display: block;
             background-color: var(--bg);
-            padding: 20px 0 10px 0;
+            padding: 15px 0 10px 0;
             border-bottom: 1px solid var(--border);
         }
 
         header {
             text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #001f4d 0%, #002f6c 100%);
+            padding: 18px 10px;
+            /* Dégradé basé sur les verts du logo */
+            background: linear-gradient(135deg, #003d22 0%, #006e44 100%);
             color: white;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0, 47, 108, 0.15);
-            margin-bottom: 15px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 110, 68, 0.1);
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         @media (prefers-color-scheme: dark) {
             header {
-                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                background: linear-gradient(135deg, #1a2d26 0%, #0e1e19 100%);
                 border: 1px solid var(--border);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             }
         }
 
-        h1 { 
-            margin: 0;
-            font-size: 1.4rem; 
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        /* Intégration du logo */
+        .header-logo {
+            max-height: 80px; /* Compact mais lisible */
+            width: auto;
+            margin-bottom: 8px;
         }
 
         .subtitle { 
-            margin-top: 4px;
-            margin-bottom: 0;
-            color: var(--accent); 
+            margin: 0;
+            color: var(--accent); /* Jaune Doré */
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Barre de recherche */
+        /* Barre de recherche dynamique */
         .search-container {
             position: relative;
             margin-bottom: 10px;
@@ -94,8 +104,8 @@
 
         .search-bar {
             width: 100%;
-            padding: 14px 16px;
-            font-size: 1rem;
+            padding: 13px 16px;
+            font-size: 0.95rem;
             border-radius: 12px;
             border: 2px solid var(--border);
             background-color: var(--surface);
@@ -108,7 +118,13 @@
 
         .search-bar:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 110, 68, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .search-bar:focus {
+                box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+            }
         }
 
         /* Séparateurs de chapitres */
@@ -121,7 +137,7 @@
             font-weight: 800;
         }
 
-        /* Cartes des semaines */
+        /* Cartes des semaines revisitées */
         .week-card { 
             background: var(--surface); 
             padding: 16px 18px; 
@@ -130,19 +146,22 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); 
             scroll-margin-top: 130px; 
             border: 1px solid var(--border);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.15s, box-shadow 0.15s;
         }
 
         .week-card:hover, .week-card:active {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            transform: translateY(-1.5px);
+            box-shadow: 0 8px 15px -3px rgba(0, 110, 68, 0.05);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .week-card:hover, .week-card:active {
+                box-shadow: 0 8px 15px -3px rgba(0,0,0,0.2);
+            }
         }
 
         .week-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .week-number {
@@ -159,7 +178,7 @@
             line-height: 1.4;
         }
 
-        /* Bouton */
+        /* Bouton "Web App" Premium */
         .btn { 
             display: flex;
             align-items: center;
@@ -173,19 +192,24 @@
             font-weight: 700; 
             font-size: 0.9rem;
             transition: background 0.15s;
+            box-shadow: 0 2px 4px rgba(0, 110, 68, 0.1);
         }
 
         @media (prefers-color-scheme: dark) {
-            .btn { color: #0f172a !important; }
+            .btn { 
+                color: #0e1e19 !important; /* Texte sombre sur bouton jaune */
+            }
         }
 
         .btn:hover { 
             background: var(--primary-light); 
+            box-shadow: 0 4px 6px rgba(0, 110, 68, 0.15);
         }
 
         .btn::before {
             content: "📄";
             margin-right: 8px;
+            font-size: 1rem;
         }
 
         /* Message si aucun résultat */
@@ -202,11 +226,11 @@
 
     <sticky-header>
         <header>
-            <h1>Mathématiques BCPST2</h1>
-            <div class="subtitle">Cahier d'Automatismes — Solutions</div>
+            <img src="image_0.png" alt="Logo Lycée Le Chesnoy" class="header-logo">
+            <div class="subtitle">Espace Numerique — Solutions</div>
         </header>
         <div class="search-container">
-            <input type="text" id="search" class="search-bar" placeholder="🔍 Rechercher une semaine ou un thème...">
+            <input type="text" id="search" class="search-bar" placeholder="🔍 Rechercher une semaine ou un thème (ex: proba, TCL, TCL)...">
         </div>
     </sticky-header>
 
@@ -358,12 +382,14 @@
 
     <script>
         document.getElementById('search').addEventListener('input', function(e) {
+            // Nettoyage de la requête (minuscules et sans accents)
             const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const cards = document.querySelectorAll('.week-card');
             const titles = document.querySelectorAll('.period-title');
             let visibleCards = 0;
 
             cards.forEach(card => {
+                // Recherche dans tout le texte de la carte
                 const text = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 if (text.includes(query)) {
                     card.style.display = 'block';
@@ -373,16 +399,12 @@
                 }
             });
 
-            // Gérer l'affichage des titres de période
+            // Gérer l'affichage des titres de période (masquer si recherche active)
             titles.forEach(title => {
-                if (query.length > 0) {
-                    title.style.display = 'none'; // Masquer les titres de trimestres en recherche
-                } else {
-                    title.style.display = 'block';
-                }
+                title.style.display = query.length > 0 ? 'none' : 'block';
             });
 
-            // Afficher un message si rien n'est trouvé
+            // Afficher un message si aucun résultat
             document.getElementById('no-results').style.display = visibleCards === 0 ? 'block' : 'none';
         });
     </script>

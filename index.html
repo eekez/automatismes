@@ -249,6 +249,40 @@
             <div class="week-name">Séries réelles (Convergences)</div>
             <a class="btn" href="solutions/corrige_w02.pdf">Ouvrir le corrigé</a>
         </div>
+    </div>
+
+    <script>
+        document.getElementById('search').addEventListener('input', function(e) {
+            // Nettoyage de la requête (minuscules et sans accents)
+            const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const cards = document.querySelectorAll('.week-card');
+            const titles = document.querySelectorAll('.period-title');
+            let visibleCards = 0;
+
+            cards.forEach(card => {
+                // Recherche dans tout le texte de la carte
+                const text = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                    visibleCards++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Gérer l'affichage des titres de période (masquer si recherche active)
+            titles.forEach(title => {
+                title.style.display = query.length > 0 ? 'none' : 'block';
+            });
+
+            // Afficher un message si aucun résultat
+            document.getElementById('no-results').style.display = visibleCards === 0 ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>
+
+
         <div class="week-card" id="w03">
             <div class="week-meta"><span class="week-number">SEMAINE 03</span></div>
             <div class="week-name">Séries réelles (Calculs de sommes)</div>
@@ -378,35 +412,3 @@
             <div class="week-name">Révisions Générales (Algèbre & Analyse)</div>
             <a class="btn" href="solutions/corrige_w26.pdf">Ouvrir le corrigé</a>
         </div>
-    </div>
-
-    <script>
-        document.getElementById('search').addEventListener('input', function(e) {
-            // Nettoyage de la requête (minuscules et sans accents)
-            const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            const cards = document.querySelectorAll('.week-card');
-            const titles = document.querySelectorAll('.period-title');
-            let visibleCards = 0;
-
-            cards.forEach(card => {
-                // Recherche dans tout le texte de la carte
-                const text = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                if (text.includes(query)) {
-                    card.style.display = 'block';
-                    visibleCards++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Gérer l'affichage des titres de période (masquer si recherche active)
-            titles.forEach(title => {
-                title.style.display = query.length > 0 ? 'none' : 'block';
-            });
-
-            // Afficher un message si aucun résultat
-            document.getElementById('no-results').style.display = visibleCards === 0 ? 'block' : 'none';
-        });
-    </script>
-</body>
-</html>
